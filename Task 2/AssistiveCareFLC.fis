@@ -1,0 +1,78 @@
+[System]
+Name='AssistiveCareFLC'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=4
+NumRules=5
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Temperature'
+Range=[10 35]
+NumMFs=3
+MF1='Cold':'trimf',[10 15 20]
+MF2='Comfortable':'trimf',[18 23 28]
+MF3='Hot':'trimf',[25 30 35]
+
+[Input2]
+Name='Humidity'
+Range=[20 80]
+NumMFs=3
+MF1='Dry':'trimf',[20 30 40]
+MF2='Normal':'trimf',[35 50 65]
+MF3='Humid':'trimf',[60 70 80]
+
+[Input3]
+Name='LightLevel'
+Range=[0 100]
+NumMFs=3
+MF1='Dark':'trimf',[0 25 50]
+MF2='Dim':'trimf',[40 60 80]
+MF3='Bright':'trimf',[70 85 100]
+
+[Input4]
+Name='MotionActivity'
+Range=[0 1]
+NumMFs=2
+MF1='Low':'trapmf',[0 0 0.2 0.5]
+MF2='High':'trapmf',[0.3 0.6 0.8 1]
+
+[Output1]
+Name='CoolingLevel'
+Range=[0 1]
+NumMFs=2
+MF1='Low':'trimf',[0 0.3 0.6]
+MF2='High':'trimf',[0.5 0.75 1]
+
+[Output2]
+Name='HeatingLevel'
+Range=[0 1]
+NumMFs=2
+MF1='Low':'trimf',[0 0.3 0.6]
+MF2='High':'trimf',[0.5 0.75 1]
+
+[Output3]
+Name='Lighting'
+Range=[0 100]
+NumMFs=2
+MF1='Dim':'trimf',[0 25 50]
+MF2='Bright':'trimf',[40 70 100]
+
+[Output4]
+Name='FurnitureAdjust'
+Range=[0 1]
+NumMFs=2
+MF1='Low':'trimf',[0 0.3 0.6]
+MF2='High':'trimf',[0.5 0.75 1]
+
+[Rules]
+1 3 1 1, 2 1 2 2 (1) : 1
+3 1 2 2, 1 2 2 1 (1) : 1
+2 2 3 1, 1 1 1 2 (1) : 1
+1 3 3 1, 2 1 1 1 (1) : 1
+3 2 1 2, 1 2 1 2 (1) : 1
